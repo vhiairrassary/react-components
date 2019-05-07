@@ -8,17 +8,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowWithTheme } from '@zendeskgarden/react-testing';
-import TooltipView from './TooltipView';
+import StyledTooltip from './StyledTooltip';
 
 describe('TooltipView', () => {
   it('renders default styling correctly', () => {
-    const wrapper = shallow(<TooltipView />);
+    const wrapper = shallow(<StyledTooltip />);
 
     expect(wrapper).toHaveClassName('c-tooltip');
   });
 
   it('renders RTL styling correctly', () => {
-    const wrapper = shallowWithTheme(<TooltipView />, { rtl: true });
+    const wrapper = shallowWithTheme(<StyledTooltip />, { rtl: true });
 
     expect(wrapper).toHaveClassName('is-rtl');
   });
@@ -26,7 +26,7 @@ describe('TooltipView', () => {
   describe('Sizing', () => {
     ['medium', 'large', 'extra-large'].forEach(size => {
       it(`renders ${size} size correctly`, () => {
-        const wrapper = shallow(<TooltipView size={size} />);
+        const wrapper = shallow(<StyledTooltip size={size} />);
 
         expect(wrapper).toHaveClassName(`c-tooltip--${size}`);
       });
@@ -64,14 +64,14 @@ describe('TooltipView', () => {
       };
 
       it(`renders ${placement} placement correctly`, () => {
-        const wrapper = shallow(<TooltipView placement={placement} />);
+        const wrapper = shallow(<StyledTooltip placement={placement} />);
 
         expect(wrapper).toHaveClassName(`c-arrow--${classes[placement]}`);
       });
     });
 
     it('does not render arrow styling if disabled', () => {
-      const wrapper = shallow(<TooltipView arrow={false} placement="top" />);
+      const wrapper = shallow(<StyledTooltip arrow={false} placement="top" />);
 
       expect(wrapper).not.toHaveClassName('c-arrow');
     });

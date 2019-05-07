@@ -16,22 +16,8 @@ module.exports = {
       content: '../../packages/tooltips/README.md'
     },
     {
-      name: 'Elements',
-      components: '../../packages/tooltips/src/elements/[A-Z]*.js'
-    },
-    {
-      name: 'Containers',
-      components: '../../packages/tooltips/src/containers/[A-Z]*.js'
-    },
-    {
-      name: 'Views',
-      components: '../../packages/tooltips/src/views/[A-Z]*.js',
-      sections: [
-        {
-          name: 'Content',
-          components: '../../packages/tooltips/src/views/content/[A-Z]*.js'
-        }
-      ]
+      name: 'Components',
+      components: '../../packages/tooltips/src/[A-Z]*.js'
     }
   ]
 };

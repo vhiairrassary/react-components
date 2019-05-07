@@ -5,15 +5,13 @@
  * found at http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-export { default as Tooltip } from './elements/Tooltip';
-export { default as TooltipContainer } from './containers/TooltipContainer';
-export { default as LightTooltip } from './views/LightTooltip';
-export { default as TooltipView } from './views/TooltipView';
-export { default as Title } from './views/content/Title';
-export { default as Paragraph } from './views/content/Paragraph';
-export {
-  GARDEN_PLACEMENTS,
-  POPPER_PLACEMENTS,
-  getPopperPlacement,
-  getRtlPopperPlacement
-} from './utils/gardenPlacements';
+import * as styledElements from './styled';
+
+export { default as TooltipProvider } from './TooltipProvider';
+export { default as TriggerProvider } from './TriggerProvider';
+
+export const styled = {
+  StyledTooltip: styledElements.StyledTooltip,
+  StyledParagraph: styledElements.StyledParagraph,
+  StyledTitle: styledElements.StyledTitle
+};

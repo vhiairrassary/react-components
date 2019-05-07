@@ -11,8 +11,8 @@ import styled from 'styled-components';
 import { ControlledComponent, IdManager } from '@zendeskgarden/react-selection';
 
 import TooltipContainer from '../containers/TooltipContainer';
-import TooltipView from '../views/TooltipView';
-import LightTooltip from '../views/LightTooltip';
+import StyledTooltip from '../styled/StyledTooltip';
+import StyledLightTooltip from '../styled/StyledLightTooltip';
 
 const SIZE = {
   SMALL: 'small',
@@ -120,7 +120,7 @@ export default class Tooltip extends ControlledComponent {
       >
         {({ getTooltipProps, placement }) => {
           const tooltipProps = { arrow, placement, size, ...otherProps };
-          const TooltipElem = type === TYPE.LIGHT ? LightTooltip : TooltipView;
+          const TooltipElem = type === TYPE.LIGHT ? StyledLightTooltip : StyledTooltip;
 
           return <TooltipElem {...getTooltipProps(tooltipProps)}>{children}</TooltipElem>;
         }}

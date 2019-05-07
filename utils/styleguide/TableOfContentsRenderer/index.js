@@ -12,7 +12,7 @@ import TableOfContentsRenderer from 'react-styleguidist/lib/rsg-components/Table
 
 import { Button, Anchor } from '../../../packages/buttons/src';
 import { ThemeProvider } from '../../../packages/theming/src';
-import { Tooltip, Title } from '../../../packages/tooltips/src';
+// import { Tooltip, Title } from '../../../packages/tooltips/src';
 import { Toggle, Label } from '../../../packages/toggles/src';
 import ChangelogModal from './Changelog';
 import Spacer from './Spacer';
@@ -93,7 +93,7 @@ class TableOfContents extends Component {
                 </a>
               </BadgeContainer>
               <Spacer height="20px" />
-              <Tooltip
+              {/* <Tooltip
                 placement="end"
                 popperModifiers={{
                   preventOverflow: {
@@ -129,7 +129,7 @@ class TableOfContents extends Component {
                 <p>
                   <Anchor href="../theming">View Garden Theming Package</Anchor>
                 </p>
-              </Tooltip>
+              </Tooltip> */}
             </RTLContainer>
           </ThemeProvider>
         </TableOfContentsRenderer>

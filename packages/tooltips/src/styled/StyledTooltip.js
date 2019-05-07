@@ -14,6 +14,11 @@ import TooltipStyles from '@zendeskgarden/css-tooltips';
 
 const COMPONENT_ID = 'tooltip.tooltip';
 
+const TYPE = {
+  LIGHT: 'light',
+  DARK: 'dark'
+};
+
 const SIZE = {
   SMALL: 'small',
   MEDIUM: 'medium',
@@ -55,7 +60,7 @@ const retrieveTooltipMargin = ({ arrow, size }) => {
 /**
  * Accepts all `<div>` props
  */
-const TooltipView = styled.div.attrs({
+const StyledTooltip = styled.div.attrs({
   'data-garden-id': COMPONENT_ID,
   'data-garden-version': PACKAGE_VERSION,
   className: props =>
@@ -64,6 +69,9 @@ const TooltipView = styled.div.attrs({
       [TooltipStyles['c-tooltip--medium']]: props.size === SIZE.MEDIUM,
       [TooltipStyles['c-tooltip--large']]: props.size === SIZE.LARGE,
       [TooltipStyles['c-tooltip--extra-large']]: props.size === SIZE.EXTRA_LARGE,
+
+      // Type
+      [TooltipStyles['c-tooltip--light']]: props.type === TYPE.LIGHT,
 
       // Arrows
       [TooltipStyles['c-arrow']]: shouldShowArrow(props),
@@ -89,7 +97,7 @@ const TooltipView = styled.div.attrs({
   ${props => retrieveTheme(COMPONENT_ID, props)};
 `;
 
-TooltipView.propTypes = {
+StyledTooltip.propTypes = {
   arrow: PropTypes.bool,
   size: PropTypes.oneOf([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE, SIZE.EXTRA_LARGE]),
   /** All valid [Popper.JS Placements](https://popper.js.org/popper-documentation.html#Popper.placements) */
@@ -106,13 +114,14 @@ TooltipView.propTypes = {
     PLACEMENT.LEFT,
     PLACEMENT.LEFT_START,
     PLACEMENT.LEFT_END
-  ])
+  ]),
+  type: PropTypes.oneOf([TYPE.LIGHT, TYPE.DARK])
 };
 
-TooltipView.defaultProps = {
+StyledTooltip.defaultProps = {
   arrow: true,
-  size: SIZE.SMALL
+  size: SIZE.SMALL,
+  type: TYPE.DARK
 };
 
-/** @component */
-export default TooltipView;
+export default StyledTooltip;
