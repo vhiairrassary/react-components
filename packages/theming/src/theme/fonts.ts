@@ -31,7 +31,7 @@ export const fonts = {
   ].join(',')
 };
 
-export const fontSizes = {
+const basicFontSizes = {
   sm: '12px',
   md: '14px',
   lg: '18px',
@@ -40,10 +40,13 @@ export const fontSizes = {
   xxxl: '36px'
 };
 
-fontSizes.mono = {
-  sm: math(`${fontSizes.sm} - 1px`),
-  md: math(`${fontSizes.md} - 1px`),
-  lg: math(`${fontSizes.lg} - 1px`)
+export const fontSizes = {
+  ...basicFontSizes,
+  mono: {
+    sm: math(`${basicFontSizes.sm} - 1px`),
+    md: math(`${basicFontSizes.md} - 1px`),
+    lg: math(`${basicFontSizes.lg} - 1px`)
+  }
 };
 
 export const fontWeights = {

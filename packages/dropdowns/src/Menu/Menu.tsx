@@ -25,6 +25,7 @@ import {
   getPopperPlacement,
   getRtlPopperPlacement
 } from '../utils/garden-placements';
+import { DefaultTheme, ThemeProps } from 'styled-components';
 
 export interface IMenuContext {
   itemIndexRef: MutableRefObject<number>;
@@ -52,7 +53,7 @@ interface IMenuProps extends HTMLProps<HTMLUListElement> {
 /**
  * Accepts all `<ul>` props
  */
-const Menu: React.FunctionComponent<IMenuProps> = props => {
+const Menu: React.FunctionComponent<IMenuProps & ThemeProps<DefaultTheme>> = props => {
   const {
     placement,
     popperModifiers,

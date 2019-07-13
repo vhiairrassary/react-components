@@ -5,8 +5,9 @@
  * found at http://www.apache.org/licenses/LICENSE-2.0.
  */
 
+import { DefaultTheme } from 'styled-components';
 import { borders, borderRadii, borderStyles, borderWidths } from './borders';
-import { default as colors } from './colors';
+import { default as baseColors } from './colors';
 import { fonts, fontSizes, fontWeights } from './fonts';
 import { default as lineHeights } from './lineHeights';
 import { shadows, shadowWidths } from './shadows';
@@ -18,12 +19,16 @@ const palette = { ...defaultPalette };
 /* Exclude product palette from the theme */
 delete palette.product;
 
-export default {
+const theme: DefaultTheme = {
+  rtl: false,
   borders,
   borderRadii,
   borderStyles,
   borderWidths,
-  colors,
+  colors: {
+    ...baseColors,
+    base: 'light'
+  },
   components: {},
   fonts,
   fontSizes,
@@ -34,3 +39,5 @@ export default {
   shadows,
   space
 };
+
+export default theme;

@@ -11,6 +11,7 @@ import Downshift, { ControllerStateAndHelpers, StateChangeOptions } from 'downsh
 import { Manager } from 'react-popper';
 import { withTheme, isRtl } from '@zendeskgarden/react-theming';
 import { KEY_CODES, composeEventHandlers } from '@zendeskgarden/container-selection';
+import { DefaultTheme, ThemeProps } from 'styled-components';
 
 export interface IDropdownContext {
   itemIndexRef: React.MutableRefObject<number>;
@@ -42,7 +43,7 @@ export interface IDropdownProps {
  * Component that provides state and a11y through the context API
  * to its consumers.
  */
-const Dropdown: React.FunctionComponent<IDropdownProps> = props => {
+const Dropdown: React.FunctionComponent<IDropdownProps & ThemeProps<DefaultTheme>> = props => {
   const {
     children,
     isOpen,

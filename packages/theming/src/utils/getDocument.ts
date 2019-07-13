@@ -5,7 +5,9 @@
  * found at http://www.apache.org/licenses/LICENSE-2.0.
  */
 
+import { DefaultTheme } from 'styled-components';
+
 /** @component */
-export default function isRtl({ theme } = {}) {
-  return Boolean(theme && theme.rtl);
+export default function getDocument({ theme }: { theme?: DefaultTheme } = {}) {
+  return (theme && theme.document) || document;
 }

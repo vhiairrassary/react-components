@@ -5,31 +5,25 @@
  * found at http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-import styled, { css } from 'styled-components';
-import {
-  defaultTheme,
-  palette,
-  isRtl,
-  retrieveComponentStyles
-} from '@zendeskgarden/react-theming';
+import styled, { css, DefaultTheme, ThemeProps } from 'styled-components';
+import { isRtl, retrieveComponentStyles, getColor } from '@zendeskgarden/react-theming';
 import rgba from 'polished/lib/color/rgba';
 import math from 'polished/lib/math/math';
 
-const retrieveSpacing = ({ isSmall }: { isSmall?: boolean }) => {
+const retrieveSpacing = ({ isSmall, theme }: { isSmall?: boolean; theme: DefaultTheme }) => {
   if (isSmall) {
-    return defaultTheme.space.lg;
+    return theme.space.lg;
   }
 
-  return defaultTheme.space.xl;
+  return theme.space.xl;
 };
 
 export const StyledDatepicker = styled.div<{
   isSmall: boolean;
 }>`
   /* stylelint-disable */
-  padding: ${props =>
-    props.isSmall ? math(`${defaultTheme.space.lg} / 2`) : defaultTheme.space.md};
-  color: ${palette.grey[800]};
+  padding: ${props => (props.isSmall ? math(`${props.theme.space.lg} / 2`) : props.theme.space.md)};
+  color: ${props => getColor({ hue: '__neutral', shade: 800, theme: props.theme })};
 
   direction: ${props => isRtl(props) && 'rtl'};
 
@@ -48,34 +42,36 @@ export const StyledHeaderPaddle = styled.div<{ isSmall: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${palette.grey[600]};
+  color: ${props => getColor({ hue: '__neutral', shade: 600, theme: props.theme })};
   cursor: pointer;
   border-radius: 50%;
 
   :hover {
-    color: ${palette.grey[800]};
-    background-color: ${rgba(palette.blue[600], 0.08)};
+    color: ${props => getColor({ hue: '__neutral', shade: 800, theme: props.theme })};
+    background-color: ${props =>
+      rgba(getColor({ hue: '__primary', shade: 600, theme: props.theme }), 0.08)};
   }
 
   :active {
-    background-color: ${rgba(palette.blue[600], 0.2)};
-    color: ${palette.grey[800]};
+    background-color: ${props =>
+      rgba(getColor({ hue: '__primary', shade: 600, theme: props.theme }), 0.2)};
+    color: ${props => getColor({ hue: '__neutral', shade: 800, theme: props.theme })};
   }
 
   transform: ${props => isRtl(props) && 'rotate(180deg)'};
 
   * {
-    width: ${math(`${defaultTheme.space.lg} / 2`)};
-    height: ${math(`${defaultTheme.space.lg} / 2`)};
+    width: ${props => math(`${props.theme.space.lg} / 2`)};
+    height: ${props => math(`${props.theme.space.lg} / 2`)};
   }
 
   ${props => retrieveComponentStyles('datepickers.header_paddle', props)};
 `;
 
 const boldedStyling = css<{ isSmall: boolean }>`
-  font-size: ${props => (props.isSmall ? defaultTheme.fontSizes.sm : defaultTheme.fontSizes.md)};
-  font-weight: ${defaultTheme.fontWeights.semibold};
-  line-height: ${defaultTheme.lineHeights.md};
+  font-size: ${props => (props.isSmall ? props.theme.fontSizes.sm : props.theme.fontSizes.md)};
+  font-weight: ${props => props.theme.fontWeights.semibold};
+  line-height: ${props => props.theme.lineHeights.md};
 `;
 
 export const StyledHeaderLabel = styled.div<{ isSmall: boolean }>`
@@ -125,14 +121,15 @@ const retrieveStyledDayColor = ({
   isDisabled,
   isSelected,
   isToday,
-  isPreviousMonth
-}: IStyledDayProps) => {
+  isPreviousMonth,
+  theme
+}: IStyledDayProps & ThemeProps<DefaultTheme>) => {
   if (isDisabled) {
-    return palette.grey[400];
+    return getColor({ hue: '__neutral', shade: 400, theme });
   }
 
   if (isSelected && !isDisabled) {
-    return palette.white;
+    return theme.palette.white;
   }
 
   if (isToday) {
@@ -140,15 +137,19 @@ const retrieveStyledDayColor = ({
   }
 
   if (isPreviousMonth) {
-    return palette.grey[600];
+    return getColor({ hue: '__neutral', shade: 600, theme });
   }
 
-  return palette.blue[600];
+  return getColor({ hue: '__primary', shade: 600, theme });
 };
 
-const retrieveBackgroundColor = ({ isSelected, isDisabled }: IStyledDayProps) => {
+const retrieveBackgroundColor = ({
+  isSelected,
+  isDisabled,
+  theme
+}: IStyledDayProps & ThemeProps<DefaultTheme>) => {
   if (isSelected && !isDisabled) {
-    return palette.blue[600];
+    return getColor({ hue: '__primary', shade: 600, theme });
   }
 
   return 'inherit';
@@ -162,10 +163,10 @@ export const StyledDay = styled.div<IStyledDayProps>`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  font-size: ${props => (props.small ? defaultTheme.fontSizes.sm : defaultTheme.fontSizes.md)};
+  font-size: ${props => (props.small ? props.theme.fontSizes.sm : props.theme.fontSizes.md)};
   font-weight: ${props =>
-    props.isToday && !props.isDisabled ? defaultTheme.fontWeights.bold : 'inherit'};
-  line-height: ${defaultTheme.lineHeights.md};
+    props.isToday && !props.isDisabled ? props.theme.fontWeights.bold : 'inherit'};
+  line-height: ${props => props.theme.lineHeights.md};
   color: ${retrieveStyledDayColor};
   background-color: ${retrieveBackgroundColor};
 
@@ -174,13 +175,13 @@ export const StyledDay = styled.div<IStyledDayProps>`
     !props.isDisabled &&
     `
   :hover {
-    background-color: ${rgba(palette.blue[600], 0.08)};
-    color: ${palette.blue[800]};
+    background-color: ${rgba(getColor({ hue: '__primary', shade: 600, theme: props.theme }), 0.08)};
+    color: ${getColor({ hue: '__primary', shade: 800, theme: props.theme })};
   }
 
   :active {
-    background-color: ${rgba(palette.blue[600], 0.2)};
-    color: ${palette.blue[800]};
+    background-color: ${rgba(getColor({ hue: '__primary', shade: 600, theme: props.theme }), 0.2)};
+    color: ${getColor({ hue: '__primary', shade: 800, theme: props.theme })};
   }
   `}
 

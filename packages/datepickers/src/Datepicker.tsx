@@ -24,6 +24,7 @@ import {
 import Calendar from './components/Calendar';
 import { datepickerReducer, retrieveInitialState } from './utils/reducer';
 import { DatepickerContext } from './utils/useDatepickerContext';
+import { ThemeProps, DefaultTheme } from 'styled-components';
 
 /**
  * Parse string input value using current locale and date formats
@@ -117,7 +118,7 @@ export interface IDatepickerProps {
   zIndex?: number;
 }
 
-const Datepicker: React.FunctionComponent<IDatepickerProps> = props => {
+const Datepicker: React.FunctionComponent<IDatepickerProps & ThemeProps<DefaultTheme>> = props => {
   const {
     children,
     placement,

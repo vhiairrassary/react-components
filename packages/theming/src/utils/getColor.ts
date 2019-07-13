@@ -5,10 +5,13 @@
  * found at http://www.apache.org/licenses/LICENSE-2.0.
  */
 
+import { DefaultTheme } from 'styled-components';
 import { default as defaultTheme } from '../theme';
 import { darken, lighten } from 'polished';
 
-const toHue = (hue, theme) => {
+type Hue = '__primary' | '__danger' | '__warning' | '__success' | '__neutral' | '__chrome' | string;
+
+const toHue = (hue?: Hue, theme?: DefaultTheme) => {
   const colors = theme && theme.colors ? theme.colors : defaultTheme.colors;
 
   switch (hue) {
@@ -44,14 +47,18 @@ const toHue = (hue, theme) => {
  *
  * @component
  */
-export default function getColor({ hue, shade = 600, theme } = {}) {
+export default function getColor({
+  hue,
+  shade = 600,
+  theme
+}: { hue?: Hue; shade?: number; theme?: DefaultTheme } = {}) {
   let retVal;
 
   if (isNaN(shade)) {
     retVal = undefined;
   } else {
     const palette = theme && theme.palette ? theme.palette : defaultTheme.palette;
-    let _hue = toHue(hue, theme);
+    let _hue: Hue | Record<string, string> = toHue(hue, theme);
 
     if (Object.prototype.hasOwnProperty.call(palette, _hue)) {
       // Convert string to a hue object.
@@ -62,9 +69,10 @@ export default function getColor({ hue, shade = 600, theme } = {}) {
       retVal = _hue[shade];
 
       if (!retVal) {
+        // @ts-ignore
         const _shade = Object.keys(_hue).reduce((previous, current) => {
           // Find the closest available shade within the given hue.
-          return Math.abs(current - shade) < Math.abs(previous - shade)
+          return Math.abs((current as any) - shade) < Math.abs((previous as any) - shade)
             ? parseInt(current, 10)
             : parseInt(previous, 10);
         });
@@ -83,5 +91,5 @@ export default function getColor({ hue, shade = 600, theme } = {}) {
     }
   }
 
-  return retVal;
+  return retVal as string;
 }
