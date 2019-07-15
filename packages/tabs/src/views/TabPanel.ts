@@ -6,7 +6,6 @@
  */
 
 import styled from 'styled-components';
-import TabStyles from '@zendeskgarden/css-tabs';
 import { retrieveComponentStyles } from '@zendeskgarden/react-theming';
 
 const COMPONENT_ID = 'tabs.tabpanel';
@@ -16,9 +15,16 @@ const COMPONENT_ID = 'tabs.tabpanel';
  */
 const TabPanel = styled.div.attrs({
   'data-garden-id': COMPONENT_ID,
-  'data-garden-version': PACKAGE_VERSION,
-  className: TabStyles['c-tab__panel']
-})`
+  'data-garden-version': PACKAGE_VERSION
+})<{ hidden?: boolean }>`
+  display: block;
+
+  ${props => props.hidden && `display: none;`}
+
+  :focus {
+    outline: none;
+  }
+
   ${props => retrieveComponentStyles('tabs.tab_panel', props)};
 `;
 

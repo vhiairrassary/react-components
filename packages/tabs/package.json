@@ -18,9 +18,11 @@
     "build:demo": "../../utils/scripts/build-demo.sh",
     "start": "../../utils/scripts/start.sh"
   },
+  "types": "./dist/typings/index.d.ts",
   "dependencies": {
+    "@zendeskgarden/container-tabs": "^0.2.1",
     "@zendeskgarden/react-selection": "^6.2.0",
-    "classnames": "^2.2.5"
+    "polished": "^3.4.1"
   },
   "peerDependencies": {
     "@zendeskgarden/react-theming": "^6.0.0",
@@ -30,7 +32,6 @@
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
-    "@zendeskgarden/css-tabs": "6.0.10",
     "@zendeskgarden/react-theming": "^6.2.0"
   },
   "keywords": [
@@ -43,5 +44,5 @@
     "access": "public"
   },
   "zendeskgarden:library": "GardenTabs",
-  "zendeskgarden:src": "src/index.js"
+  "zendeskgarden:src": "src/index.ts"
 }

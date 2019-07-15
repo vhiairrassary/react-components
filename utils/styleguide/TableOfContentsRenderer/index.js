@@ -63,6 +63,7 @@ class TableOfContents extends Component {
 
   render() {
     const isRtl = location.search.indexOf('isRtl') !== -1;
+    const isDark = location.search.indexOf('isDark') !== -1;
     const githubPackageUrl = `https://github.com/zendeskgarden/react-components/tree/master/packages/${BASE_PATH_NAME}`;
     const { children, ...other } = this.props;
     const { isChangelogModalOpen } = this.state;
@@ -128,6 +129,20 @@ class TableOfContents extends Component {
                   <Anchor href="../theming">View Garden Theming Package</Anchor>
                 </p>
               </Tooltip>
+              <Field>
+                <Toggle
+                  checked={isDark}
+                  onChange={() => {
+                    if (isDark) {
+                      location.search = '';
+                    } else {
+                      location.search = '?isDark';
+                    }
+                  }}
+                >
+                  <Label>Dark Mode</Label>
+                </Toggle>
+              </Field>
             </RTLContainer>
           </ThemeProvider>
         </TableOfContentsRenderer>

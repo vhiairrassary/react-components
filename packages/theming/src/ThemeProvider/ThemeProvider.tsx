@@ -8,7 +8,6 @@
 import PropTypes from 'prop-types';
 import React, { PropsWithChildren } from 'react';
 import { ThemeProvider as StyledThemeProvider, DefaultTheme } from 'styled-components';
-import merge from 'merge-anything';
 import { default as defaultTheme } from '../theme';
 
 /** @component */

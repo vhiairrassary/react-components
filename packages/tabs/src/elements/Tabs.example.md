@@ -1,4 +1,4 @@
-The `Tabs` component requires the following structure.
+TODO FIX The `Tabs` component requires the following structure.
 
 - All `children` require a unique `key` and a `label` to display
 - Each `child` can have an optional `disabled` prop to disable selection
@@ -7,36 +7,22 @@ The `Tabs` component requires the following structure.
 All elements proxy the props of their native DOM representations.
 
 If this abstraction is not able to handle your use-case use the
-[TabsContainer](#tabscontainer) component with our presentation components.
-
-```jsx static
-<Tabs>
-  <TabPanel label="Tab 1" key="unique-value-1">
-    Tab 1 content
-  </TabPanel>
-  <TabPanel label={<div>Tab 2</div>} key="unique-value-2" tabProps={{ 'data-test-id': 'custom' }}>
-    Tab 2 content
-  </TabPanel>
-  ...
-</Tabs>
-```
+[useTabs hook](https://garden.zendesk.com/react-containers/storybook/?path=/story/tabs-container--usetabs)
+component with our presentation components.
 
 ### Uncontrolled Usage
 
 ```jsx
 <Tabs>
-  <TabPanel label="Tab 1" key="tab-1">
-    Tab 1 content
-  </TabPanel>
-  <TabPanel label="Tab 2" key="tab-2">
-    Tab 2 content
-  </TabPanel>
-  <TabPanel label="Disabled Tab" disabled>
-    Disabled content
-  </TabPanel>
-  <TabPanel label="Tab 3" key="tab-3">
-    Tab 3 content
-  </TabPanel>
+  <TabList>
+    <Tab value="tab-1">Tab 1</Tab>
+    <Tab value="tab-2" disabled>
+      Disabled Tab
+    </Tab>
+    <Tab value="tab-3">Tab 3</Tab>
+  </TabList>
+  <TabPanel value="tab-1">Tab 1 content</TabPanel>
+  <TabPanel value="tab-3">Tab 3 content</TabPanel>
 </Tabs>
 ```
 
@@ -46,8 +32,15 @@ If this abstraction is not able to handle your use-case use the
 tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
 
 <Tabs vertical>
+  <TabList>
+    {tabs.map(tab => (
+      <Tab value={tab} key={tab}>
+        {tab}
+      </Tab>
+    ))}
+  </TabList>
   {tabs.map(tab => (
-    <TabPanel label={tab} key={tab}>
+    <TabPanel value={tab} key={tab}>
       Vertical {tab} content
     </TabPanel>
   ))}
@@ -57,17 +50,16 @@ tabs = ['Tab 1', 'Tab 2', 'Tab 3'];
 ### Controlled Usage
 
 ```jsx
-initialState = { selectedKey: 'tab-2' };
+initialState = { selectedItem: 'tab-2' };
 
-<Tabs selectedKey={state.selectedKey} onChange={selectedKey => setState({ selectedKey })}>
-  <TabPanel label="Tab 1" key="tab-1">
-    Tab 1 content
-  </TabPanel>
-  <TabPanel label="Tab 2" key="tab-2">
-    Tab 2 content
-  </TabPanel>
-  <TabPanel label="Tab 3" key="tab-3">
-    Tab 3 content
-  </TabPanel>
+<Tabs selectedItem={state.selectedItem} onSelect={selectedItem => setState({ selectedItem })}>
+  <TabList>
+    <Tab value="tab-1">Tab 1</Tab>
+    <Tab value="tab-2">Tab 2</Tab>
+    <Tab value="tab-3">Tab 3</Tab>
+  </TabList>
+  <TabPanel value="tab-1">Tab 1 content</TabPanel>
+  <TabPanel value="tab-2">Tab 2 content</TabPanel>
+  <TabPanel value="tab-3">Tab 3 content</TabPanel>
 </Tabs>;
 ```
