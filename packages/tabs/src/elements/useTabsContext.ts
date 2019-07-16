@@ -16,6 +16,7 @@ interface ITabsContext {
   currentTabIndex: number;
   currentPanelIndex: number;
   tabRefs: React.RefObject<HTMLDivElement>[];
+  isVertical: boolean;
 }
 
 export const TabsContext = createContext<ITabsContext | undefined>(undefined);

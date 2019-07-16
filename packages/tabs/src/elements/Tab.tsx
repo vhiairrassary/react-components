@@ -20,7 +20,7 @@ const Tab = ({ value, disabled, ...props }: ITabProps) => {
   const tabsContext = useTabsContext();
 
   if (disabled) {
-    return <StyledTab disabled {...props} />;
+    return <StyledTab disabled isVertical={tabsContext.isVertical} {...props} />;
   }
 
   const currentIndex = tabsContext.currentTabIndex;

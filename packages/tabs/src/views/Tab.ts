@@ -16,9 +16,9 @@ const COMPONENT_ID = 'tabs.tab';
 interface ITabProps {
   hovered?: boolean;
   focused?: boolean;
-  active?: boolean;
   disabled?: boolean;
   selected?: boolean;
+  isVertical: boolean;
 }
 
 // ${props =>
@@ -65,41 +65,32 @@ const Tab = styled.div.attrs<ITabProps>({
     text-decoration: none;
   }
 
-  ${props =>
-    props.focused &&
-    `
-    color: ${getColor({ hue: '__primary', shade: 600, theme: props.theme })};
+  &.focus-visible {
+    color: ${props => getColor({ hue: '__primary', shade: 600, theme: props.theme })};
 
     ::before {
       position: absolute;
       top: 10px;
       right: ${math('28px - 4px')};
       left: ${math('28px - 4px')};
-      border-radius: ${props.theme.borderRadii.md};
-      box-shadow: inset ${props.theme.shadows.sm(
-        rgba(getColor({ hue: '__primary', shade: 600, theme: props.theme }), 0.35)
-      )};
-      height: ${props.theme.space.md};
+      border-radius: ${props => props.theme.borderRadii.md};
+      box-shadow: inset
+        ${props =>
+          props.theme.shadows.sm(
+            rgba(getColor({ hue: '__primary', shade: 600, theme: props.theme }), 0.35)
+          )};
+      height: ${props => props.theme.space.md};
       pointer-events: none;
     }
-  `};
-
-  ${props =>
-    props.active &&
-    `
-    border-color: currentColor;
-    color: ${getColor({ hue: '__primary', shade: 600, theme: props.theme })};
-
-    ::before {
-      box-shadow: none;
-    }
-  `};
+  }
 
   ${props =>
     props.selected &&
     `
-    border-color: currentColor;
-    color: ${getColor({ hue: '__primary', shade: 600, theme: props.theme })};
+    &&& {
+      border-color: currentColor;
+      color: ${getColor({ hue: '__primary', shade: 600, theme: props.theme })};
+    }
   `}
 
   ${props =>
@@ -113,6 +104,14 @@ const Tab = styled.div.attrs<ITabProps>({
   ::before {
     transition: var(box-shadow 0.1s ease-in-out);
     content: '';
+
+    ${props =>
+      props.isVertical &&
+      `
+      top: ${props.theme.space.xs} !important;
+      right: ${props.theme.space.xxs} !important;
+      left: ${props.theme.space.xxs} !important;
+    `}
   }
 
   ${props => retrieveComponentStyles('tabs.tab', props)};
@@ -121,7 +120,6 @@ const Tab = styled.div.attrs<ITabProps>({
 Tab.propTypes = {
   hovered: PropTypes.bool,
   focused: PropTypes.bool,
-  active: PropTypes.bool,
   disabled: PropTypes.bool,
   selected: PropTypes.bool
 };

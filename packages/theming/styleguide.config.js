@@ -29,6 +29,10 @@ module.exports = {
       content: '../../packages/theming/README.md'
     },
     {
+      name: 'Focus visible',
+      content: '../../packages/theming/src/examples/focus-visible.md'
+    },
+    {
       name: 'Palette',
       content: '../../packages/theming/src/examples/palette.md'
     },

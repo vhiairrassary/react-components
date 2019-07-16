@@ -5,9 +5,9 @@
  * found at http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-import React, { HTMLProps, PropsWithChildren } from 'react';
+import React, { HTMLProps, PropsWithChildren, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withTheme, isRtl } from '@zendeskgarden/react-theming';
+import { withTheme, isRtl, useFocusVisible } from '@zendeskgarden/react-theming';
 import { useTabs } from '@zendeskgarden/container-tabs';
 
 import StyledTabsView from '../views/TabsView';
@@ -16,7 +16,7 @@ import { TabsContext } from './useTabsContext';
 import { DefaultTheme, ThemeProps } from 'styled-components';
 
 interface ITabsProps extends ThemeProps<DefaultTheme>, HTMLProps<HTMLDivElement> {
-  vertical?: boolean;
+  vertical: boolean;
   selectedItem?: any;
   focusedItem?: any;
   onSelect?: (selectedItem: any) => void;
@@ -32,6 +32,10 @@ const Tabs = ({
   onFocus,
   ...other
 }: PropsWithChildren<ITabsProps>) => {
+  const ref = useRef() as any;
+
+  useFocusVisible({ ref });
+
   const {
     selectedItem: tabsSelectedItem,
     focusedItem: tabsFocusedItem,
@@ -57,10 +61,11 @@ const Tabs = ({
         getTabPanelProps,
         currentTabIndex: 0,
         currentPanelIndex: 0,
-        tabRefs: []
+        tabRefs: [],
+        isVertical: vertical
       }}
     >
-      <StyledTabsView vertical={vertical} {...other}>
+      <StyledTabsView vertical={vertical} ref={ref} {...other}>
         {children}
       </StyledTabsView>
     </TabsContext.Provider>

@@ -21,9 +21,9 @@ const TabPanel = styled.div.attrs({
 
   ${props => props.hidden && `display: none;`}
 
-  :focus {
-    outline: none;
-  }
+  // :focus {
+  //   outline: none;
+  // }
 
   ${props => retrieveComponentStyles('tabs.tab_panel', props)};
 `;

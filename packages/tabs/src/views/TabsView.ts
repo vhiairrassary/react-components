@@ -49,14 +49,17 @@ const TabsView = styled.div.attrs<ITabsViewProps>({
       padding: ${props.theme.space.xxs} ${props.theme.space.xs};
       text-align: left;
 
-      ${isRtl(props) &&
-        `
+      ${
+        isRtl(props)
+          ? `
         margin-left: 0;
         border-left: 0;
         border-right-style: solid;
         border-right-color: transparent;
         text-align: right;
-      `}
+      `
+          : ''
+      }
     }
 
     ${Tab}:last-of-type {
