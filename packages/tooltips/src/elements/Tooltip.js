@@ -40,6 +40,7 @@ export default class Tooltip extends ControlledComponent {
     appendToBody: PropTypes.bool,
     arrow: PropTypes.bool,
     children: PropTypes.node,
+    className: PropTypes.string,
     /** Milliseconds of delay before open/close of tooltip is initiated */
     delayMilliseconds: PropTypes.number,
     /** Whether Popper.js should update based on DOM resize events */
@@ -115,7 +116,7 @@ export default class Tooltip extends ControlledComponent {
         trigger={({ getTriggerProps, ref }) => {
           const triggerElement = cloneElement(trigger, getTriggerProps(trigger.props));
 
-          return <TriggerWrapper ref={ref}>{triggerElement}</TriggerWrapper>;
+          return <TriggerWrapper className={className} ref={ref}>{triggerElement}</TriggerWrapper>;
         }}
       >
         {({ getTooltipProps, placement }) => {
